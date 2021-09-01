@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UISearchBarDelegate {
+class ViewController: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,9 @@ class ViewController: UIViewController, UISearchBarDelegate {
         
         
     }
+    
+    var picsManager = PicsManager()
+    
     
     var picNames: [String] = [
         "Puppy",
@@ -129,6 +132,30 @@ extension ViewController:  UICollectionViewDelegateFlowLayout, UICollectionViewD
         return cell
     }
     
+}
+
+extension ViewController: UISearchBarDelegate {
+//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        print("Im printing now!")
+//    }
     
-    
+    // Contents of the searchBar are sent, but only after a delay. This is to prevent swnding
+    // a request after every character. Better to wait until the user has stopped typing.
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.reload(_:)), object: searchBar)
+            perform(#selector(self.reload(_:)), with: searchBar, afterDelay: 0.5)
+        }
+
+        @objc func reload(_ searchBar: UISearchBar) {
+            guard let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) != "" else {
+                print("nothing to search")
+                return
+            }
+
+            if let term = searchBar.searchTextField.text {
+                picsManager.getPics(term)
+            } else {
+                print("Invalid query.")
+            }
+        }
 }

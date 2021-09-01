@@ -13,6 +13,8 @@
 		238067A526DE283100C4746F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 238067A426DE283100C4746F /* Assets.xcassets */; };
 		238067A826DE283100C4746F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 238067A626DE283100C4746F /* LaunchScreen.storyboard */; };
 		238067BE26DE8ED700C4746F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238067BD26DE8ED700C4746F /* CollectionViewCell.swift */; };
+		23A3873426DFC6D1002BD239 /* PicsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A3873326DFC6D1002BD239 /* PicsData.swift */; };
+		23A3873626DFCC37002BD239 /* PicsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A3873526DFCC37002BD239 /* PicsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		238067A726DE283100C4746F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		238067A926DE283100C4746F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		238067BD26DE8ED700C4746F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		23A3873326DFC6D1002BD239 /* PicsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicsData.swift; sourceTree = "<group>"; };
+		23A3873526DFCC37002BD239 /* PicsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				238067A426DE283100C4746F /* Assets.xcassets */,
 				238067A626DE283100C4746F /* LaunchScreen.storyboard */,
 				238067A926DE283100C4746F /* Info.plist */,
+				23A3873326DFC6D1002BD239 /* PicsData.swift */,
+				23A3873526DFCC37002BD239 /* PicsManager.swift */,
 			);
 			path = UIKit_ProgrammaticUI_SearchBar;
 			sourceTree = "<group>";
@@ -137,8 +143,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				238067A026DE283000C4746F /* ViewController.swift in Sources */,
+				23A3873426DFC6D1002BD239 /* PicsData.swift in Sources */,
 				2380679C26DE283000C4746F /* AppDelegate.swift in Sources */,
 				238067BE26DE8ED700C4746F /* CollectionViewCell.swift in Sources */,
+				23A3873626DFCC37002BD239 /* PicsManager.swift in Sources */,
 				2380679E26DE283000C4746F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
