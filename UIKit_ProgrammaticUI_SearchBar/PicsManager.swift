@@ -7,9 +7,18 @@
 
 import Foundation
 
+protocol PicsManagerDelegate {
+    func didUpdatePics(_ pics: PicsData)
+}
+
 struct PicsManager {
+    
     var currentPage: Int = 1
-    let picsURL = "https://api.unsplash.com/photos/"
+    let picsURL = "https://api.unsplash.com/search/photos/"
+    
+    
+    
+    var delegate: PicsManagerDelegate?
     
     let API_Key = "U5JhPqLRQmlpnIIruCblsd670NsIXkoiuD0DdWAU3P4"
     
@@ -20,10 +29,57 @@ struct PicsManager {
     }
     
     var searchURL: String {
-        return ("\(picsURL)?page=\(String(currentPage))")
+        return ("\(picsURL)?client_id=\(API_Key)&page=\(String(currentPage))")
     }
     
     func getPics(_ term: String) {
-        print("\(searchURL)&query=\"\(term)\"")
+        let fullURL = "\(searchURL)&query=\(term)"
+        self.performRequest(with: fullURL)
+    }
+    
+    func performRequest(with urlString: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            
+            let task = session.dataTask(with: url, completionHandler: { (data, response, error) in
+                if error != nil {
+                    print("Error: \(error!)")
+                    return
+                }
+                
+                if let data = data {
+                    print("calling parseJSON")
+                    self.parseJSON(data)
+                    
+//                    let dataString = String(data: data, encoding: .utf8)
+//                    print(dataString!)
+                    
+                } else {
+                    print("No data!!")
+                }
+                
+                
+            })
+            
+            task.resume()
+        }
+    }
+    
+    func parseJSON(_ picsData: Data) {
+        do {
+            let decodedData = try JSONDecoder().decode(PicsData.self, from: picsData)
+            print("Decoded data:\n\(decodedData.results[0].urls.small)")
+            var downloadedPics: [Result] = []
+            downloadedPics += decodedData.results
+            print("~~~ ~~~ ~~~")
+            print(downloadedPics)
+            
+            self.delegate?.didUpdatePics(decodedData)
+            
+            
+        } catch let error {
+            print("Error decoding data: \(error)")
+        }
+        
     }
 }

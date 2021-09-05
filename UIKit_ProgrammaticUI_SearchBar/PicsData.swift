@@ -15,7 +15,7 @@ struct PicsData: Decodable {
 
 struct Result: Decodable {
     let id: String
-    let description: String
+    let alt_description: String
     let likes: Int
     let user: User
     let urls: URLS

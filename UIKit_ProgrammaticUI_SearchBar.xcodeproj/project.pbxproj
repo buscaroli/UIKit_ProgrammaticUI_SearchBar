@@ -67,8 +67,8 @@
 				238067A426DE283100C4746F /* Assets.xcassets */,
 				238067A626DE283100C4746F /* LaunchScreen.storyboard */,
 				238067A926DE283100C4746F /* Info.plist */,
-				23A3873326DFC6D1002BD239 /* PicsData.swift */,
 				23A3873526DFCC37002BD239 /* PicsManager.swift */,
+				23A3873326DFC6D1002BD239 /* PicsData.swift */,
 			);
 			path = UIKit_ProgrammaticUI_SearchBar;
 			sourceTree = "<group>";

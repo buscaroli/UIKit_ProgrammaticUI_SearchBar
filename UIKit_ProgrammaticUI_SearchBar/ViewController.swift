@@ -27,6 +27,7 @@ class ViewController: UIViewController  {
     }
     
     var picsManager = PicsManager()
+    var picList: PicsData?
     
     
     var picNames: [String] = [
@@ -158,4 +159,14 @@ extension ViewController: UISearchBarDelegate {
                 print("Invalid query.")
             }
         }
+}
+
+extension ViewController: PicsManagerDelegate {
+    func didUpdatePics(_ pics: PicsData) {
+        DispatchQueue.main.async {
+            self.picList = pics
+        }
+    }
+    
+    
 }
