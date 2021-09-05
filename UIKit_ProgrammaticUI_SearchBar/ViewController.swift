@@ -20,6 +20,7 @@ class ViewController: UIViewController  {
         searchBarView.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
+        picsManager.delegate = self
         
         setupLayout()
         
@@ -27,19 +28,7 @@ class ViewController: UIViewController  {
     }
     
     var picsManager = PicsManager()
-    var picList: PicsData?
-    
-    
-    var picNames: [String] = [
-        "Puppy",
-        "Cats",
-        "Joyful kittens",
-        "Happy cubs",
-        "Meeeouww!",
-        "Woof woof",
-        "Bark Bark",
-        "Squeeze me!"
-    ]
+    var pics = PicsModel()
     
     func setupLayout() {
         NSLayoutConstraint.activate([
@@ -119,26 +108,22 @@ extension ViewController:  UICollectionViewDelegateFlowLayout, UICollectionViewD
     
     // How many cells
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return picNames.count
+        return pics.pics.count
         
     }
 
     // Details of each cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-        
-        cell.backgroundColor = .systemTeal
-        cell.picLabel.text = picNames[indexPath.item]
-        
+        cell.picLabel.text = pics.pics[indexPath.item].getUserName
+        cell.backgroundImageView = pics.pics[indexPath.item].smallPicData
+      
         return cell
     }
     
 }
 
 extension ViewController: UISearchBarDelegate {
-//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        print("Im printing now!")
-//    }
     
     // Contents of the searchBar are sent, but only after a delay. This is to prevent swnding
     // a request after every character. Better to wait until the user has stopped typing.
@@ -162,9 +147,13 @@ extension ViewController: UISearchBarDelegate {
 }
 
 extension ViewController: PicsManagerDelegate {
-    func didUpdatePics(_ pics: PicsData) {
+    func didUpdatePics(_ pics: PicsModel) {
         DispatchQueue.main.async {
-            self.picList = pics
+            self.pics = pics
+            self.collectionView.reloadData()
+            print("~~~ ~~~ ~~~ ~~~ ~~~ ~~~")
+            print(pics.pics[0].smallPic)
+            print(pics.pics[0].smallPicData)
         }
     }
     

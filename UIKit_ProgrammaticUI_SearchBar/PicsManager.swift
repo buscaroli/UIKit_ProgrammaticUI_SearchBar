@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PicsManagerDelegate {
-    func didUpdatePics(_ pics: PicsData)
+    func didUpdatePics(_ pics: PicsModel)
 }
 
 struct PicsManager {
@@ -66,15 +66,21 @@ struct PicsManager {
     }
     
     func parseJSON(_ picsData: Data) {
+        let pics = PicsModel()
+        
         do {
             let decodedData = try JSONDecoder().decode(PicsData.self, from: picsData)
             print("Decoded data:\n\(decodedData.results[0].urls.small)")
             var downloadedPics: [Result] = []
             downloadedPics += decodedData.results
-            print("~~~ ~~~ ~~~")
-            print(downloadedPics)
+//            print("~~~ ~~~ ~~~")
+//            print(downloadedPics)
+            for item in decodedData.results {
+                let pic = PicDetails(userName: item.user.name, title: item.alt_description, smallPic: item.urls.small, largePic: item.urls.full)
+                pics.pics.append(pic)
+            }
             
-            self.delegate?.didUpdatePics(decodedData)
+            self.delegate?.didUpdatePics(pics)
             
             
         } catch let error {

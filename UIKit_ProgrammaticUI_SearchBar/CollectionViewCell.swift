@@ -35,10 +35,21 @@ class CollectionViewCell: UICollectionViewCell {
     lazy var picLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "HelveticaNeue", size: 18)
+        label.font = UIFont(name: "HelveticaNeue", size: 13)
         label.textColor = .systemIndigo
         
         return label
+    }()
+    
+    lazy var backgroundImageView: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.layer.cornerRadius = 10
+        image.layer.borderWidth = 2
+        image.layer.borderColor = UIColor.systemTeal.cgColor
+        image.contentMode = .scaleAspectFill
+        
+        return image
     }()
     
 }
