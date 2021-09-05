@@ -42,6 +42,7 @@ class CollectionViewCell: UICollectionViewCell {
     }()
     
     lazy var backgroundImageView: UIImageView = {
+        let img = UIImage()
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.layer.cornerRadius = 10
@@ -71,5 +72,17 @@ extension CollectionViewCell {
             picLabel.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
             picLabel.centerYAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -15)
         ])
+    }
+    
+    func configure(with urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url, completionHandler: { [weak self] data, _, error in
+            guard let data = data, error == nil else { return }
+            
+            DispatchQueue.main.async {
+                let image = UIImage(data: data)
+                self?.backgroundImageView.image = image
+            }
+        }).resume()
     }
 }

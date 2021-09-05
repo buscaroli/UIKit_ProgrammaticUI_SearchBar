@@ -118,27 +118,32 @@ extension ViewController:  UICollectionViewDelegateFlowLayout, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         cell.picLabel.text = pics.pics[indexPath.item].getUserName
+//        METHOD ONE
 //        let url = URL(string: pics.pics[indexPath.item].smallPicUrl)!
 //        let data = try? Data(contentsOf: url)
 //        let img = UIImage(data: data!)
 //        cell.backgroundImageView.image = img
         
-        let url = URL(string: pics.pics[indexPath.item].smallPicUrl)!
-        let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
-            if error != nil {
-                print("Error")
-                return
-            }
-
-            if let data = data {
-                DispatchQueue.main.async {
-                    cell.backgroundImageView = UIImageView(image: UIImage(data: data))
-                    print("cellForItemAt \(indexPath.item) : \(self.pics.pics[indexPath.item].smallPicUrl)")
-                }
-            }
-        })
-
-        task.resume()
+//        METHOD TWO
+//        let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
+//            if error != nil {
+//                print("Error")
+//                return
+//            }
+//
+//            if let data = data {
+//                DispatchQueue.main.async {
+//                    cell.backgroundImageView = UIImageView(image: UIImage(data: data))
+//                    print("cellForItemAt \(indexPath.item) : \(self.pics.pics[indexPath.item].smallPicUrl)")
+//                }
+//            }
+//        })
+//
+//        task.resume()
+        
+//        METHOD THREE
+        let urlString = pics.pics[indexPath.item].smallPicUrl
+        cell.configure(with: urlString)
       
         return cell
     }
