@@ -76,7 +76,7 @@ struct PicsManager {
 //            print("~~~ ~~~ ~~~")
 //            print(downloadedPics)
             for item in decodedData.results {
-                let pic = PicDetails(userName: item.user.name, title: item.alt_description, smallPic: item.urls.small, largePic: item.urls.full)
+                let pic = PicDetails(userName: item.user.name, title: item.alt_description, smallPicUrl: item.urls.small, largePicUrl: item.urls.full)
                 pics.pics.append(pic)
             }
             

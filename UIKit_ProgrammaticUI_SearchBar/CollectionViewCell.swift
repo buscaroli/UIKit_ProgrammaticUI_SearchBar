@@ -42,14 +42,13 @@ class CollectionViewCell: UICollectionViewCell {
     }()
     
     lazy var backgroundImageView: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.cornerRadius = 10
-        image.layer.borderWidth = 2
-        image.layer.borderColor = UIColor.systemTeal.cgColor
-        image.contentMode = .scaleAspectFill
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.layer.cornerRadius = 10
+        iv.layer.borderWidth = 2
+        iv.layer.borderColor = UIColor.systemTeal.cgColor
         
-        return image
+        return iv
     }()
     
 }

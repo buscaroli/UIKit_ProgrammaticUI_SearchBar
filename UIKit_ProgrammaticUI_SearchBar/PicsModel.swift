@@ -15,12 +15,12 @@ class PicsModel {
 struct PicDetails {
     var userName: String
     var title: String
-    var smallPic: String
-    var largePic: String
+    var smallPicUrl: String
+    var largePicUrl: String
     
-    var smallPicData: UIImageView {
-        return self.getPicData(smallPic)
-    }
+//    var smallPicData: UIImageView {
+//        return self.getPicData(smallPic)
+//    }
     
 //    var getShortUserName: String {
 //        var nameString = userName
@@ -38,27 +38,27 @@ struct PicDetails {
         return nameString
     }
     
-    func getPicData(_ urlString: String) -> UIImageView {
-        let img = UIImageView()
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            if let url = URL(string: urlString) {
-                let session = URLSession(configuration: .default)
-                let task = session.dataTask(with: url, completionHandler: { data, response, error in
-                    if error != nil {
-                        img.backgroundColor = .systemRed
-                    }
-                    
-                    if let data = data {
-                        DispatchQueue.main.async {
-                            img.image = UIImage(data: data)
-                        }
-                    }
-                })
-                task.resume()
-            }
-        }
-        return img
-    }
+//    func getPicData(_ urlString: String) -> UIImageView {
+//        let img = UIImageView()
+//
+//        DispatchQueue.global(qos: .userInitiated).async {
+//            if let url = URL(string: urlString) {
+//                let session = URLSession(configuration: .default)
+//                let task = session.dataTask(with: url, completionHandler: { data, response, error in
+//                    if error != nil {
+//                        img.backgroundColor = .systemRed
+//                    }
+//
+//                    if let data = data {
+//                        DispatchQueue.main.async {
+//                            img.image = UIImage(data: data)
+//                        }
+//                    }
+//                })
+//                task.resume()
+//            }
+//        }
+//        return img
+//    }
 }
 

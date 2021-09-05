@@ -25,6 +25,7 @@ class ViewController: UIViewController  {
         setupLayout()
         
         
+        
     }
     
     var picsManager = PicsManager()
@@ -68,7 +69,7 @@ class ViewController: UIViewController  {
         let sb = UISearchBar()
         sb.translatesAutoresizingMaskIntoConstraints = false
         sb.searchBarStyle = .default
-        sb.placeholder = "Filter coins..."
+        sb.placeholder = "Search..."
         sb.sizeToFit()
         sb.isTranslucent = false
         sb.showsCancelButton = false
@@ -103,7 +104,8 @@ extension ViewController:  UICollectionViewDelegateFlowLayout, UICollectionViewD
     
     // Dimensions of the cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width / 3.5, height: collectionView.frame.width / 3.5)
+//        return CGSize(width: collectionView.frame.width / 3.5, height: collectionView.frame.width / 3.5)
+        return CGSize(width: collectionView.frame.width / 1.1, height: collectionView.frame.width / 1.1)
     }
     
     // How many cells
@@ -116,7 +118,27 @@ extension ViewController:  UICollectionViewDelegateFlowLayout, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         cell.picLabel.text = pics.pics[indexPath.item].getUserName
-        cell.backgroundImageView = pics.pics[indexPath.item].smallPicData
+//        let url = URL(string: pics.pics[indexPath.item].smallPicUrl)!
+//        let data = try? Data(contentsOf: url)
+//        let img = UIImage(data: data!)
+//        cell.backgroundImageView.image = img
+        
+        let url = URL(string: pics.pics[indexPath.item].smallPicUrl)!
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
+            if error != nil {
+                print("Error")
+                return
+            }
+
+            if let data = data {
+                DispatchQueue.main.async {
+                    cell.backgroundImageView = UIImageView(image: UIImage(data: data))
+                    print("cellForItemAt \(indexPath.item) : \(self.pics.pics[indexPath.item].smallPicUrl)")
+                }
+            }
+        })
+
+        task.resume()
       
         return cell
     }
@@ -125,8 +147,8 @@ extension ViewController:  UICollectionViewDelegateFlowLayout, UICollectionViewD
 
 extension ViewController: UISearchBarDelegate {
     
-    // Contents of the searchBar are sent, but only after a delay. This is to prevent swnding
-    // a request after every character. Better to wait until the user has stopped typing.
+    // Contents of the searchBar are sent, but only after a delay. This is to prevent sending
+    // a request after every character. Better to wait until the user has finished typing.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.reload(_:)), object: searchBar)
             perform(#selector(self.reload(_:)), with: searchBar, afterDelay: 0.5)
@@ -152,8 +174,7 @@ extension ViewController: PicsManagerDelegate {
             self.pics = pics
             self.collectionView.reloadData()
             print("~~~ ~~~ ~~~ ~~~ ~~~ ~~~")
-            print(pics.pics[0].smallPic)
-            print(pics.pics[0].smallPicData)
+            print(pics.pics[0].smallPicUrl)
         }
     }
     
