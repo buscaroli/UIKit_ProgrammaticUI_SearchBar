@@ -88,7 +88,7 @@ class ViewController: UIViewController  {
         layout.minimumLineSpacing = 10
         layout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .systemYellow
+        cv.backgroundColor = .systemBackground
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         
@@ -178,8 +178,8 @@ extension ViewController: PicsManagerDelegate {
         DispatchQueue.main.async {
             self.pics = pics
             self.collectionView.reloadData()
-            print("~~~ ~~~ ~~~ ~~~ ~~~ ~~~")
-            print(pics.pics[0].smallPicUrl)
+//            print("~~~ ~~~ ~~~ ~~~ ~~~ ~~~")
+//            print(pics.pics[0].smallPicUrl)
         }
     }
     

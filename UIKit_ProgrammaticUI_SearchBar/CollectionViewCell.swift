@@ -27,7 +27,7 @@ class CollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 10
         view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor.systemTeal.cgColor
+        view.layer.borderColor = UIColor.systemGray.cgColor
         
         return view
     }()
@@ -36,18 +36,18 @@ class CollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "HelveticaNeue", size: 13)
-        label.textColor = .systemIndigo
+        label.textColor = .systemBlue
         
         return label
     }()
     
     lazy var backgroundImageView: UIImageView = {
-        let img = UIImage()
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.layer.cornerRadius = 10
         iv.layer.borderWidth = 2
-        iv.layer.borderColor = UIColor.systemTeal.cgColor
+        //iv.layer.borderColor = UIColor.systemTeal.cgColor
+        iv.clipsToBounds = true
         
         return iv
     }()
@@ -62,12 +62,18 @@ extension CollectionViewCell {
         // Option + leftClick for more info!
         self.contentView.addSubview(roundedBackgroundView)
         roundedBackgroundView.addSubview(picLabel)
+        roundedBackgroundView.addSubview(backgroundImageView)
         
         NSLayoutConstraint.activate([
             roundedBackgroundView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5),
             roundedBackgroundView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5),
             roundedBackgroundView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5),
             roundedBackgroundView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5),
+            
+            backgroundImageView.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: roundedBackgroundView.bottomAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: roundedBackgroundView.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: roundedBackgroundView.trailingAnchor),
             
             picLabel.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
             picLabel.centerYAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -15)
@@ -81,7 +87,9 @@ extension CollectionViewCell {
             
             DispatchQueue.main.async {
                 let image = UIImage(data: data)
-                self?.backgroundImageView.image = image
+                self!.backgroundImageView.image = image
+                print("~~~~~ ~~~~~ ~~~~~")
+                print(self?.backgroundImageView.image ?? "nothing to print here...")
             }
         }).resume()
     }
