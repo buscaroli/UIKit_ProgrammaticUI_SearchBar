@@ -48,6 +48,7 @@ class CollectionViewCell: UICollectionViewCell {
         iv.layer.borderWidth = 2
         //iv.layer.borderColor = UIColor.systemTeal.cgColor
         iv.clipsToBounds = true
+        iv.sizeToFit()
         
         return iv
     }()

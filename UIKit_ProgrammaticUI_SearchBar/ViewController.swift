@@ -22,11 +22,13 @@ class ViewController: UIViewController  {
         collectionView.dataSource = self
         picsManager.delegate = self
         
+        
+        
         setupLayout()
         
-        
-        
     }
+    
+    
     
     var picsManager = PicsManager()
     var pics = PicsModel()
@@ -58,7 +60,7 @@ class ViewController: UIViewController  {
         tv.font = UIFont(name: "Georgia-Italic", size: 44)
         tv.textColor = .systemBlue
         tv.textAlignment = .center
-        tv.text = "Coins Live"
+        tv.text = "UnSplash Search"
         tv.sizeToFit()
                 
         return tv

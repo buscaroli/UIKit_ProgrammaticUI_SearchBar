@@ -8,6 +8,7 @@
 import UIKit
 
 class PicsModel {
+    var pageNumber = 1
     var pics: [PicDetails] = []
     
 }

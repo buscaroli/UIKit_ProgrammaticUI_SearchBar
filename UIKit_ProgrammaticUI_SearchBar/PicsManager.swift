@@ -13,9 +13,8 @@ protocol PicsManagerDelegate {
 
 struct PicsManager {
     
-    var currentPage: Int = 1
     let picsURL = "https://api.unsplash.com/search/photos/"
-    
+    var currentPage = 1
     
     
     var delegate: PicsManagerDelegate?
@@ -29,13 +28,16 @@ struct PicsManager {
     }
     
     var searchURL: String {
-        return ("\(picsURL)?client_id=\(API_Key)&page=\(String(currentPage))")
+        
+        return ("\(picsURL)?client_id=\(API_Key)&&per_page=100&page=\(String(currentPage))")
     }
     
     func getPics(_ term: String) {
         let fullURL = "\(searchURL)&query=\(term)"
         self.performRequest(with: fullURL)
     }
+    
+    
     
     func performRequest(with urlString: String) {
         if let url = URL(string: urlString) {
